@@ -1,0 +1,23 @@
+---
+title: "Pokemon"
+author: "Kiernan"
+editor: visual
+---
+
+```{r}
+library(readr)
+```
+
+
+```{r}
+# column names
+poke_cols <- c("id", "pokemon", "height", "weight",
+							 "base_experience", "type_1", "type_2", "hp", "attack", "defense",
+							 "special_attack", "special_defense", "speed", "color_1", "color_2", "color_f")
+
+# read in raw data, replacing missing values with NA
+pokemon <- read_csv(here::here("Data", "2025", "2025-04-01", "pokemon_df.csv"),
+				 na = c("-1", "-2", "-3", "-4", "-5", "-998"),
+				 skip = 1, col_names = poke_cols)
+```
+
