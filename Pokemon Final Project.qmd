@@ -6,6 +6,7 @@ editor: visual
 
 ```{r}
 library(readr)
+library(gtsummary)
 ```
 
 
@@ -18,12 +19,16 @@ poke_cols <- c("id", "pokemon", "species_id", "height", "weight",
 
 # read in raw data, replacing missing values with NA
 pokemon <- read_csv(here::here("Data", "2025", "2025-04-01", "pokemon_df.csv"),
-				 na = c("-1", "-2", "-3", "-4", "-5", "-998"),
+				 na = "-1",
 				 skip= 1, col_names = poke_cols)
 ```
 
 
 ```{r}
-
+tbl_summary(
+  pokemon,
+  by = type_1,
+  include = c(hp, attack, defense, special_attack, special_defense, speed)
+)
 ```
 
