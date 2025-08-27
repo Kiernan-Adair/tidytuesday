@@ -34,7 +34,7 @@ tbl_summary(
 ```{r}
 bst <- function(pokemon_name, data = pokemon) {
   row <- data |>
-    dplyr::filter(tolower(pokemon) == tolower(pokemon_name))
+    dplyr::filter(tolower(pokemon) %in% tolower(pokemon_name))
  if (nrow(row) == 0) {
     return(paste(pokemon_name, "not found."))
   }
@@ -49,6 +49,10 @@ bst <- function(pokemon_name, data = pokemon) {
 
   
 ```{r}
-bst(Mew, data = pokemon)
+#Function Test
+
+bst("infernape")
+bst(c("slaking", "charizard", "Dialga"))
+bst("ding-dong")
 ```
 
