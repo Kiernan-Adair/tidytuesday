@@ -7,8 +7,8 @@ editor: visual
 ```{r}
 library(readr)
 library(gtsummary)
+library(dplyr)
 ```
-
 
 ```{r}
 # column names
@@ -23,12 +23,32 @@ pokemon <- read_csv(here::here("Data", "2025", "2025-04-01", "pokemon_df.csv"),
 				 skip= 1, col_names = poke_cols)
 ```
 
-
 ```{r}
 tbl_summary(
   pokemon,
   by = type_1,
   include = c(hp, attack, defense, special_attack, special_defense, speed)
 )
+```
+
+```{r}
+bst <- function(pokemon_name, data = pokemon) {
+  row <- data |>
+    dplyr::filter(tolower(pokemon) == tolower(pokemon_name))
+ if (nrow(row) == 0) {
+    return(paste(pokemon_name, "not found."))
+  }
+  
+  base_stat_total <- row$hp + row$attack + row$defense +
+                     row$special_attack + row$special_defense + row$speed
+  
+  return(base_stat_total) 
+}  
+  
+```
+
+  
+```{r}
+bst(Mew, data = pokemon)
 ```
 
