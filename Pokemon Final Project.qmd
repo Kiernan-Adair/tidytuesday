@@ -43,8 +43,10 @@ tbl_summary(
   by = type_1,
   include = c(hp, attack, defense, special_attack, special_defense, speed)
 )
+
+unique_pokemon_forms <- nrow(pokemon)
 ```
-@tbl-one shows base stats stratified by primary typing
+@tbl-one shows base stats stratified by primary typing. There were `r unique_pokemon_forms` Pokemon (including all forms and variants)
 
 ```{r}
 #| echo: false
