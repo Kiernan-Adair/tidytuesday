@@ -5,12 +5,18 @@ editor: visual
 ---
 
 ```{r}
+#| echo: false
+#| warning: false
+
 library(readr)
 library(gtsummary)
 library(dplyr)
 ```
 
 ```{r}
+#| echo: false
+#| message: false
+#| include: false
 # column names
 poke_cols <- c("id", "pokemon", "species_id", "height", "weight",
 							 "base_experience", "type_1", "type_2", "hp", "attack", "defense",
@@ -24,6 +30,8 @@ pokemon <- read_csv(here::here("Data", "2025", "2025-04-01", "pokemon_df.csv"),
 ```
 
 ```{r}
+# getting the median and IQR for hp, attack, defense, special attack, special defense, and sped stats based
+# on the primary typing for each Pokemon.
 tbl_summary(
   pokemon,
   by = type_1,
@@ -33,26 +41,31 @@ tbl_summary(
 
 ```{r}
 bst <- function(pokemon_name, data = pokemon) {
-  row <- data |>
-    dplyr::filter(tolower(pokemon) %in% tolower(pokemon_name))
- if (nrow(row) == 0) {
+  
+  data <- dplyr::mutate(data, name_lower = tolower(pokemon))
+  pokemon_name_lower <- tolower(pokemon_name)
+  rows <- dplyr::filter(data, name_lower %in% pokemon_name_lower)
+
+  
+ if (nrow(rows) == 0) {
     return(paste(pokemon_name, "not found."))
   }
   
-  base_stat_total <- row$hp + row$attack + row$defense +
-                     row$special_attack + row$special_defense + row$speed
+
+  rows <- rows[match(pokemon_name_lower, rows$name_lower), ]
+  
+  base_stat_total <- rows$hp + rows$attack + rows$defense +
+                     rows$special_attack + rows$special_defense + rows$speed
   
   return(base_stat_total) 
 }  
   
 ```
 
-  
 ```{r}
 #Function Test
 
 bst("infernape")
-bst(c("slaking", "charizard", "Dialga"))
+bst(c("slaking", "charizard", "Dialga", "ding-dong"))
 bst("ding-dong")
 ```
-
