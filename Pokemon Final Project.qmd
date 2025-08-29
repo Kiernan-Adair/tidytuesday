@@ -40,6 +40,7 @@ tbl_summary(
 ```
 
 ```{r}
+# Function that takes a Pokemon name and calculates its base stat total
 bst <- function(pokemon_name, data = pokemon) {
   
   data <- dplyr::mutate(data, name_lower = tolower(pokemon))
@@ -63,9 +64,17 @@ bst <- function(pokemon_name, data = pokemon) {
 ```
 
 ```{r}
-#Function Test
+# Function Test
 
 bst("infernape")
 bst(c("slaking", "charizard", "Dialga", "ding-dong"))
 bst("ding-dong")
 ```
+
+```{r}
+# Making a histogram showingthe distribution of Pokemon base stat totals
+
+hist(bst(pokemon$pokemon))
+
+```
+
