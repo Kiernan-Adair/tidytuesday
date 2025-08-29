@@ -17,6 +17,7 @@ library(dplyr)
 #| echo: false
 #| message: false
 #| include: false
+
 # column names
 poke_cols <- c("id", "pokemon", "species_id", "height", "weight",
 							 "base_experience", "type_1", "type_2", "hp", "attack", "defense",
@@ -30,16 +31,44 @@ pokemon <- read_csv(here::here("Data", "2025", "2025-04-01", "pokemon_df.csv"),
 ```
 
 ```{r}
+#| echo: false
+#| label: tbl-one
+#| tbl-cap: "Descriptive Statisitcs"
+ 
 # getting the median and IQR for hp, attack, defense, special attack, special defense, and sped stats based
 # on the primary typing for each Pokemon.
+
 tbl_summary(
   pokemon,
   by = type_1,
   include = c(hp, attack, defense, special_attack, special_defense, speed)
 )
 ```
+@tbl-one shows base stats stratified by primary typing
 
 ```{r}
+#| echo: false
+#| label: tbl-two
+#| tbl-cap: Linear Regression
+
+# Linear regression predicting weight based on base stats
+
+linear_model <- lm(weight ~ hp + attack + defense + special_attack + special_defense + speed, data = pokemon)
+
+gtsummary::tbl_regression(
+  linear_model,
+  label = list(
+    special_attack ~ "special attack",
+    special_defense ~ "special defense"
+  ),
+  intercept = TRUE,
+)
+```
+@tbl-two uses hp, attack, defense, special attack, special defense, and speed stats to predict the weight of a Pokemon
+
+```{r}
+#| echo: false
+
 # Function that takes a Pokemon name and calculates its base stat total
 bst <- function(pokemon_name, data = pokemon) {
   
@@ -72,9 +101,13 @@ bst("ding-dong")
 ```
 
 ```{r}
-# Making a histogram showingthe distribution of Pokemon base stat totals
+#| echo: false
+#| label: fig-one
+#| fig-cap: "Distribution of Base Stat Totals"
 
-hist(bst(pokemon$pokemon))
+# Making a histogram showing the distribution of Pokemon base stat totals
+
+hist(bst(pokemon$pokemon), main = "Base Stat Total Distribution")
 
 ```
-
+@fig-one shows the distribution of Pokemon base stat totals
