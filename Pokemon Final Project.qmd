@@ -107,7 +107,7 @@ bst("ding-dong")
 
 # Making a histogram showing the distribution of Pokemon base stat totals
 
-hist(bst(pokemon$pokemon), main = "Base Stat Total Distribution")
+hist(bst(pokemon$pokemon), main = "Base Stat Total Distribution", xlab = "Base Stat Totals")
 
 ```
 @fig-one shows the distribution of Pokemon base stat totals
