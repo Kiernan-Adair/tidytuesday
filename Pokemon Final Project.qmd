@@ -38,15 +38,18 @@ pokemon <- read_csv(here::here("Data", "2025", "2025-04-01", "pokemon_df.csv"),
 # getting the median and IQR for hp, attack, defense, special attack, special defense, and sped stats based
 # on the primary typing for each Pokemon.
 
-tbl_summary(
+pokemon_table <- tbl_summary(
   pokemon,
   by = type_1,
   include = c(hp, attack, defense, special_attack, special_defense, speed)
-)
+)|> 
+  add_overall(last = TRUE)
+pokemon_table
 
 unique_pokemon_forms <- nrow(pokemon)
+attack_stat_inline <- inline_text(pokemon_table, variable = "attack", column = "dragon", pattern = "{median}")
 ```
-@tbl-one shows base stats stratified by primary typing. There were `r unique_pokemon_forms` Pokemon (including all forms and variants)
+@tbl-one shows base stats stratified by primary typing. There were `r unique_pokemon_forms` Pokemon (including all forms and variants). Dragon and fighting types were tied for the highest median attack `r attack_stat_inline`.
 
 ```{r}
 #| echo: false
