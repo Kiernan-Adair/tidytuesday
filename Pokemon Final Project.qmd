@@ -62,7 +62,7 @@ speed_stat_inline <- inline_text(pokemon_table, variable = "speed", column = "fl
 
 dragon_pokemon <- dplyr::filter(pokemon, type_1 == "dragon")
 
-write_csv(dragon_pokemon, here::here("tidytuesday", "Data", "dragon_pokemon.csv"))
+write_csv(dragon_pokemon, here::here("Data", "dragon_pokemon.csv"))
 
 ```
 
