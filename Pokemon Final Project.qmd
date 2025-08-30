@@ -47,9 +47,25 @@ pokemon_table <- tbl_summary(
 pokemon_table
 
 unique_pokemon_forms <- nrow(pokemon)
-attack_stat_inline <- inline_text(pokemon_table, variable = "attack", column = "dragon", pattern = "{median}")
+
+hp_stat_inline <- inline_text(pokemon_table, variable = "hp", column = "dragon", pattern = "{median}")
+attack_stat_inline <- inline_text(pokemon_table, variable = "attack", column = "fighting", pattern = "{median}")
+defense_stat_inline <- inline_text(pokemon_table, variable = "defense", column = "steel", pattern = "{median}")
+special_attack_stat_inline <- inline_text(pokemon_table, variable = "special_attack", column = "flying", pattern = "{median}")
+special_defense_stat_inline <- inline_text(pokemon_table, variable = "special_defense", column = "psychic", pattern = "{median}")
+speed_stat_inline <- inline_text(pokemon_table, variable = "speed", column = "flying", pattern = "{median}")
 ```
-@tbl-one shows base stats stratified by primary typing. There were `r unique_pokemon_forms` Pokemon (including all forms and variants). Dragon and fighting types were tied for the highest median attack `r attack_stat_inline`.
+@tbl-one shows base stats stratified by primary typing. There were `r unique_pokemon_forms` Pokemon (including all forms and variants). Among all of the types, steel types have the highest median defense(`r defense_stat_inline`), flying has the highest median special attack(`r special_attack_stat_inline`) and speed (`r speed_stat_inline`). Dragon types have the highest median hp(`r hp_stat_inline`), and are tied with fighting types for the highest median attack(`r attack_stat_inline`) and psychic types for the highest median special defense(`r special_defense_stat_inline`).
+
+```{r}
+# Writing a csv that lists all Pokemon with a primary type of dragon
+
+dragon_pokemon <- dplyr::filter(pokemon, type_1 == "dragon")
+
+write_csv(dragon_pokemon, here::here("tidytuesday", "Data", "dragon_pokemon.csv"))
+
+```
+
 
 ```{r}
 #| echo: false
@@ -101,7 +117,7 @@ bst <- function(pokemon_name, data = pokemon) {
 # Function Test
 
 bst("infernape")
-bst(c("slaking", "charizard", "Dialga", "ding-dong"))
+bst(c("slaking", "charizard", "Dialga"))
 bst("ding-dong")
 ```
 
@@ -113,6 +129,7 @@ bst("ding-dong")
 # Making a histogram showing the distribution of Pokemon base stat totals
 
 hist(bst(pokemon$pokemon), main = "Base Stat Total Distribution", xlab = "Base Stat Totals")
-
 ```
 @fig-one shows the distribution of Pokemon base stat totals
+
+
