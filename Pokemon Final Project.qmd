@@ -58,6 +58,8 @@ speed_stat_inline <- inline_text(pokemon_table, variable = "speed", column = "fl
 @tbl-one shows base stats stratified by primary typing. There were `r unique_pokemon_forms` Pokemon (including all forms and variants). Among all of the types, steel types have the highest median defense(`r defense_stat_inline`), flying has the highest median special attack(`r special_attack_stat_inline`) and speed (`r speed_stat_inline`). Dragon types have the highest median hp(`r hp_stat_inline`), and are tied with fighting types for the highest median attack(`r attack_stat_inline`) and psychic types for the highest median special defense(`r special_defense_stat_inline`).
 
 ```{r}
+#| echo: false
+
 # Writing a csv that lists all Pokemon with a primary type of dragon
 
 dragon_pokemon <- dplyr::filter(pokemon, type_1 == "dragon")
