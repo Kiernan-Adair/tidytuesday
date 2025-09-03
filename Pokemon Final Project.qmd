@@ -55,6 +55,7 @@ special_attack_stat_inline <- inline_text(pokemon_table, variable = "special_att
 special_defense_stat_inline <- inline_text(pokemon_table, variable = "special_defense", column = "psychic", pattern = "{median}")
 speed_stat_inline <- inline_text(pokemon_table, variable = "speed", column = "flying", pattern = "{median}")
 ```
+
 @tbl-one shows base stats stratified by primary typing. There were `r unique_pokemon_forms` Pokemon (including all forms and variants). Among all of the types, steel types have the highest median defense(`r defense_stat_inline`), flying has the highest median special attack(`r special_attack_stat_inline`) and speed (`r speed_stat_inline`). Dragon types have the highest median hp(`r hp_stat_inline`), and are tied with fighting types for the highest median attack(`r attack_stat_inline`) and psychic types for the highest median special defense(`r special_defense_stat_inline`).
 
 ```{r}
@@ -67,7 +68,6 @@ dragon_pokemon <- dplyr::filter(pokemon, type_1 == "dragon")
 write_csv(dragon_pokemon, here::here("Data", "dragon_pokemon.csv"))
 
 ```
-
 
 ```{r}
 #| echo: false
@@ -87,6 +87,7 @@ gtsummary::tbl_regression(
   intercept = TRUE,
 )
 ```
+
 @tbl-two uses hp, attack, defense, special attack, special defense, and speed stats to predict the weight of a Pokemon
 
 ```{r}
@@ -132,6 +133,5 @@ bst("ding-dong")
 
 hist(bst(pokemon$pokemon), main = "Base Stat Total Distribution", xlab = "Base Stat Totals")
 ```
+
 @fig-one shows the distribution of Pokemon base stat totals
-
-
