@@ -25,7 +25,7 @@ poke_cols <- c("id", "pokemon", "species_id", "height", "weight",
 							 "egg_group_1", "egg_group_2", "url_icon", "generation_id", "url_image")
 
 # read in raw data, replacing missing values with NA
-pokemon <- read_csv(here::here("Data", "2025", "2025-04-01", "pokemon_df.csv"),
+pokemon <- read_csv(here::here("data", "2025", "2025-04-01", "pokemon_df.csv"),
 				 na = "-1",
 				 skip= 1, col_names = poke_cols)
 ```
@@ -129,9 +129,15 @@ bst("ding-dong")
 #| label: fig-one
 #| fig-cap: "Distribution of Base Stat Totals"
 
-# Making a histogram showing the distribution of Pokemon base stat totals
 
+
+# Making a histogram showing the distribution of Pokemon base stat totals
 hist(bst(pokemon$pokemon), main = "Base Stat Total Distribution", xlab = "Base Stat Totals")
+
+png(filename = here::here("Figures", "fig-one.png"), width = 800, height = 600)
+hist(bst(pokemon$pokemon), main = "Base Stat Total Distribution", xlab = "Base Stat Totals")
+dev.off()
+
 ```
 
 @fig-one shows the distribution of Pokemon base stat totals
